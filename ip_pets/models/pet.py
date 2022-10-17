@@ -22,7 +22,7 @@ class Pet(SQL):
         response = requests.get("https://zoo-animal-api.herokuapp.com/animals/rand")
         response_info = response.json()
         data['pet_image'] = response_info['image_link']
-        query = "INSERT INTO pets (name, pet_ip, feed_timer, pet_image) VALUES ( %(name)s, %(pet_ip)s, %(feed_timer)s, %(pet_image)s)"
+        query = "INSERT INTO pets (name, pet_ip, feed_timer, pet_image, last_fed_at) VALUES ( %(name)s, %(pet_ip)s, %(feed_timer)s, %(pet_image)s, NOW())"
         return connectToMySQL(DB).query_db(query, data)
 
     @classmethod
