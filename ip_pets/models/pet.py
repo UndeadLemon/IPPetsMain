@@ -1,7 +1,7 @@
 from ip_pets.config.mysqlconnection import connectToMySQL
 from ip_pets import DB
 from ip_pets.models.SQL import SQL
-import random, re, datetime, requests, json
+import random, re, datetime, requests
 
 class Pet(SQL):
     table = "pets"
