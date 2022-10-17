@@ -1,7 +1,7 @@
 from ip_pets.config.mysqlconnection import connectToMySQL
 from ip_pets import DB
 from ip_pets.models.SQL import SQL
-import random, re, datetime
+import random, re, datetime, requests, json
 
 class Pet(SQL):
     table = "pets"
@@ -9,15 +9,29 @@ class Pet(SQL):
         self.feed_timer = data['feed_timer']
         self.created_at = data['created_at']
         self.last_fed_at = data['last_fed_at']
-        self.pet_name = data['pet_name']
+        self.name = data['name']
         self.pet_ip = data['pet_ip']
+        self.pet_image = data['pet_image']
 
     @classmethod
     def initialize_pet(cls, data):
-        data['pet_name'] = Pet.random_name()
+        data['name'] = Pet.random_name()
+        print("Name selected")
         data['feed_timer'] = random.randint(18, 240)
-        data['last_fed_at'] = datetime.datetime.utcnow()
-        Pet.create(data)
+        print("Timer Set")
+        response = requests.get("https://zoo-animal-api.herokuapp.com/animals/rand")
+        response_info = response.json()
+        data['pet_image'] = response_info['image_link']
+        query = "INSERT INTO pets (name, pet_ip, feed_timer, pet_image) VALUES ( %(name)s, %(pet_ip)s, %(feed_timer)s, %(pet_image)s)"
+        return connectToMySQL(DB).query_db(query, data)
+
+    @classmethod
+    def check_ip(cls, data):
+        query = "SELECT * FROM pets WHERE pet_ip = %(pet_ip)s"
+        result = connectToMySQL(DB).query_db(query, data)
+        if result:
+            return True
+        
 
     @staticmethod
     def random_name():
