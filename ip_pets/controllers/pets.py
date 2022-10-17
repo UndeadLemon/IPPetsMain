@@ -9,9 +9,9 @@ def this_ip_pet():
         'id':1
         }
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
-        print(request.environ['REMOTE_ADDR'])
+        ip = request.environ['REMOTE_ADDR']
     else:
-        print(request.environ['HTTP_X_FORWARDED_FOR'])
+        ip = request.environ['HTTP_X_FORWARDED_FOR']
     pet = Pet.get_one(data)
-    return render_template('index.html', pet=pet)
+    return render_template('index.html', pet=pet,ip=ip)
 
