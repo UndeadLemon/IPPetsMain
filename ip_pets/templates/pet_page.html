@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- CSS only -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous">
+
+    <title>Your IP Pet</title>
+</head>
+
+<body class="container">
+    <div class="row">
+        <div class="col-4 mx-auto">
+            <p  class="text-center">Your IP is {{ip}}</p>
+            <p  class="text-center">This IP's pet is: {{pet.name}}</p>
+            {% if timer < 1: %}
+            <p class="text-center">{{pet.name}} is content and full.</p>
+            {% else: %}
+            <p  class="text-center">{{pet.name}} hasn't been fed in {{timer}} hours!</p>
+            {% endif %}
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-4 mx-auto">
+            <img class="img-fluid rounded d-block" src={{pet.pet_image}} alt="Your Pet's Pic">
+        </div>
+    </div>
+    <div class="row">
+        <div class = "col-6 mx-auto">
+            <div class="d-flex mt-5 justify-content-evenly">
+                <a class="btn btn-primary" href = "/feed_pet">Feed Pet</a>
+                <a class="btn btn-primary" href ="/pet_stats">Pet Stats</a>
+                <a class="btn btn-primary" href="/placeholder">Placeholder</a>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+</html>
