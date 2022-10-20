@@ -64,5 +64,5 @@ def pet_stats():
     }
     pet = Pet.get_one(data)
     
-    last_fed = pet.last_fed_at.strftime('%m/%d, %Y, at %I:%S')
+    last_fed = pet.last_fed_at.strftime('%m/%d/%Y, at %I:%S')
     return render_template('pet_stats.html', pet=pet, last_fed=last_fed)
