@@ -5,9 +5,7 @@ from ip_pets.models.SQL import SQL
 from datetime import datetime
 from flask import render_template,redirect,request,session,flash
 
-@app.route("/")
-def redirect_pets():
-    return redirect("/this_ip_pet")
+
 @app.route("/this_ip_pet")
 def this_ip_pet():
     if request.environ.get('HTTP_X_FORWARDED_FOR') is None:
