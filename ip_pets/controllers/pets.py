@@ -26,9 +26,9 @@ def this_ip_pet():
         pet = Pet.get_one(data)
     else:
         pet = Pet.get_one(data)
-        
-    if pet.process_update():
-        return redirect('/this_ip_pet')
+    
+    if pet.process_update() == True:
+        return redirect('/')
     print(pet.last_fed_at)
     time_difference = datetime.now() - pet.last_fed_at
     timer = floor(time_difference.seconds/3600)

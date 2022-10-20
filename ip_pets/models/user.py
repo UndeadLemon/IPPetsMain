@@ -1,5 +1,5 @@
 from ip_pets.config.mysqlconnection import connectToMySQL
-import SQL
+from ip_pets.models.SQL import SQL
 from ip_pets import bcrypt, DB
 import re
 
