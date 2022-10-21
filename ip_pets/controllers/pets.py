@@ -27,9 +27,9 @@ def this_ip_pet():
     
     if pet.process_update() == True:
         return redirect('/')
-    print(pet.last_fed_at)
+    
     time_difference = datetime.now() - pet.last_fed_at
-    timer = floor(time_difference.seconds/3600)
+    timer = floor(time_difference.total_seconds()/3600)
     
     # d = datetime.strptime(pet.last_fed_at, '%Y-%m-%d %H:%M:%S')
     
@@ -64,7 +64,8 @@ def pet_stats():
     
     last_fed = pet.last_fed_at.strftime('%m/%d/%Y at %I:%S')
     born = pet.created_at.strftime('%m/%d/%Y at %I:%S')
-    time_difference = datetime.now() - pet.created_at
-    age = floor((time_difference.seconds/86400))
-    print(age)
+    time_difference_age = datetime.now() - pet.created_at
+
+    age = time_difference_age.days
+    
     return render_template('pet_stats.html', pet=pet, last_fed=last_fed, age=age, born=born)
