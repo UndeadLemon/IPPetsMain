@@ -62,5 +62,8 @@ def pet_stats():
     }
     pet = Pet.get_one(data)
     
-    last_fed = pet.last_fed_at.strftime('%m/%d/%Y, at %I:%S')
-    return render_template('pet_stats.html', pet=pet, last_fed=last_fed)
+    last_fed = pet.last_fed_at.strftime('%m/%d/%Y at %I:%S')
+    born = pet.created_at.strftime('%m/%d/%Y at %I:%S')
+    time_difference = datetime.now() - pet.created_at
+    age = floor((time_difference.seconds/3600)/24)
+    return render_template('pet_stats.html', pet=pet, last_fed=last_fed, age=age, born=born)
