@@ -32,4 +32,48 @@ def changelog():
 def login():
 
     return render_template("login.html")
+@app.route("/login_processing", methods = ["POST"])
+def login_processing():
+    data = {
+        'username':request.form['username']
+    }
+    userdata = User.get_one(data)
+    
+    if not userdata:
+        flash("Invalid Email/Password")
+        return redirect('/login')
+    if not bcrypt.check_password_hash(userdata.password, request.form['password']):
+        flash("Invalid Email/Password")
+        return redirect('/login')
 
+    session['user_id'] = userdata.id
+    
+    return redirect("/user_page")
+
+@app.route("/registration_processing", methods = ["POST"])
+def registration_processing():
+    is_valid = User.validate_user(request.form)
+    if request.form['password'] != request.form['confirm_password']:
+        flash("Passwords do not match!")
+        is_valid = False
+    if is_valid == False:
+        return redirect('/login')
+    data ={}
+
+    data['username'] = request.form['username']
+
+    data['password'] = bcrypt.generate_password_hash(request.form['password'])
+    print(data)
+    print(User.create(data))
+    
+    return redirect('/user_page')
+
+@app.route("/user_page")
+def user_page():
+
+    return render_template("user_page.html")
+
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect("/")

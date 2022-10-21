@@ -16,8 +16,11 @@ NAVBAR:
                 <a href="/suggestions" class="nav-link nav-item">Suggestions Box</a>
 
                 <a href="/changelog" class="nav-link nav-item">Changelog</a>
-
+                {% if 'user_id' in session: %}
+                <a href="/user_page" class="nav-link nav-item">User Page</a>
+                {% else: %}
                 <a href="/login" class="nav-link nav-item">Login</a>
+                {% endif %}
             </div>
 
         </div>
@@ -46,3 +49,10 @@ EMPTY PAGE:
 </body>
 
 </html>
+
+USER AND LOGIN:
+{% if 'user_id' in session: %}
+<a href="/user_page" class="nav-link nav-item">User Page</a>
+{% else: %}
+<a href="/login" class="nav-link nav-item">Login</a>
+{% endif %}

@@ -17,7 +17,7 @@ class SQL:
         query = f"INSERT INTO {cls.table} ("  #Table name passed in
         query += ", ".join(key for key in data) #This is the join code, joining all columns together
         query += ") VALUES (" #Separator, closing and opening next section
-        query += ", ".join(f'%{key})s' for key in data) #Joins keys here again, f string for mogrify!?!
+        query += ", ".join(f'%({key})s' for key in data) #Joins keys here again, f string for mogrify!?!
         query += ");" #This finishes the query.
         return connectToMySQL(DB).query_db(query, data)
         
